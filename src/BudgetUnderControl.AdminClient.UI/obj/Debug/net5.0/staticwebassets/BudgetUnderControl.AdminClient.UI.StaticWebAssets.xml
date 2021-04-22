@@ -1,0 +1,6 @@
+﻿<StaticWebAssets Version="1.0">
+  <ContentRoot BasePath="/" Path="D:\Projects\buc.Admin\src\BudgetUnderControl.AdminClient.UI\bin\Debug\net5.0\wwwroot\" />
+  <ContentRoot BasePath="/" Path="D:\Projects\buc.Admin\src\BudgetUnderControl.AdminClient.UI\obj\Debug\net5.0\scopedcss\bundle\" />
+  <ContentRoot BasePath="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication" Path="C:\Users\Luke\.nuget\packages\microsoft.aspnetcore.components.webassembly.authentication\5.0.5\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/TabBlazor" Path="C:\Users\Luke\.nuget\packages\tabblazor\0.3.2-alpha\build\..\staticwebassets\" />
+</StaticWebAssets>
