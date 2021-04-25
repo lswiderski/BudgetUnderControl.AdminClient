@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <UserSecretsId>f8a94354-203a-47a2-920b-d460aa0e1821</UserSecretsId>
     <AssemblyName>BudgetUnderControl.AdminClient.UI</AssemblyName>
     <RootNamespace>BudgetUnderControl.AdminClient.UI</RootNamespace>
   </PropertyGroup>
@@ -29,6 +28,10 @@
   
   <ItemGroup>
     <Folder Include="Pages\Users\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\BudgetUnderControl.AdminClient.Core\BudgetUnderControl.AdminClient.Core.csproj" />
   </ItemGroup>
 
 </Project>

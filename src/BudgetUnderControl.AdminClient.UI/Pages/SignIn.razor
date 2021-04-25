@@ -1,0 +1,70 @@
+﻿@page "/sign-in"
+@using System.ComponentModel.DataAnnotations
+@using BudgetUnderControl.AdminClient.UI.Services
+@using TabBlazor.Services
+@inject ToastService ToastService
+@inject IAuthenticationService AuthenticationService
+@inject NavigationManager NavigationManager
+
+
+<div class="card">
+    <div class="card-body" style="position: relative;">
+        <div class="d-flex align-items-center">
+            <div class="subheader">Sign In</div>
+            <div class="ms-auto lh-1">
+            </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Login</label>
+          <input type="text" class="form-control" name="example-text-input" placeholder="login" @bind="@_signInModel.Username">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" name="example-password-input" placeholder="password" @bind="@_signInModel.Password">
+        </div>
+        <Button BackgroundColor="@TablerColor.Success" OnClick="SignInAsync">Sign in</Button>
+        <span>@_userFirstName</span>
+    </div>
+</div>
+
+@code {
+    private string[] _errors = { };
+
+    private SignInModel _signInModel { get; set; } = new();
+    private string _userFirstName { get; set; }
+
+    private class SignInModel
+    {
+        [Required]
+        [EmailAddress]
+        public string Username { get; set; }
+
+        [Required]
+        public string Password { get; set; }
+    }
+
+    private async Task SignInAsync()
+    {
+        var signedIn = await AuthenticationService.SignInAsync(_signInModel.Username, _signInModel.Password);
+
+        if (signedIn is null)
+        {
+            await ToastService.AddToastAsync(new ToastModel {Title = "Error", Message = "Couldn't sign in - service is unavailable"});
+            return;
+        }
+        if (signedIn.Value)
+        {
+            await ToastService.AddToastAsync(new ToastModel { Title = "Success", Message = "Signed in" });
+            await AuthenticationService.LoadUserIdentityAsync();
+            var user = AuthenticationService.User;
+            _userFirstName = user.FirstName;
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            await ToastService.AddToastAsync(new ToastModel { Title = "Error", Message = "Invalid credentials." });
+        }
+
+
+    }
+}

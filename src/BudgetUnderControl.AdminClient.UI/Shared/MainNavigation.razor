@@ -1,24 +1,26 @@
 ﻿<Navbar Darkmode>
 
     <a href="https://github.com/lswiderski/BudgetUnderControl.API" class="navbar-brand navbar-brand-autodark">
-        <h2 class="mt-2">Budget Under Control</h2>
-    </a><br />
-        <a href="https://github.com/lswiderski/BudgetUnderControl.API" class="navbar-brand navbar-brand-autodark">
-            <h3 >Admin Client</h3>
-        </a>
+        <h2 class="mt-2">BUC Admin Client</h2>
+    </a>
    
     <NavbarMenu>
         <NavbarMenuItem Href="dashboard" Text="Dashboard">
             <MenuItemIcon>
-                <Icon class="icon" />
+                <Icon class="icon" Elements="@TablerIcons.Dashboard"/>
             </MenuItemIcon>
         </NavbarMenuItem>
 
         <NavbarMenuItem Href="users" Text="Users">
             <MenuItemIcon>
-                <Icon class="icon" />
+                <Icon class="icon" Elements="@TablerIcons.Users" />
             </MenuItemIcon>
         </NavbarMenuItem>
 
+         <NavbarMenuItem Href="sign-out" Text="Sign Out">
+                    <MenuItemIcon>
+                        <Icon class="icon" Elements="@TablerIcons.Logout" />
+                    </MenuItemIcon>
+                </NavbarMenuItem>
     </NavbarMenu>
 </Navbar>

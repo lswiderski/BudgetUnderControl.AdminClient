@@ -1,9 +1,15 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager Navigation
+@inject IAuthenticationService AuthenticationService
 
 <ModalContainer />
 <ToastContainer />
+@if (AuthenticationService.User is { })
+{
+    <MainNavigation></MainNavigation>
+}
 
-<MainNavigation></MainNavigation>
+
 
 <div class="page">
     <div class="content">
@@ -14,22 +20,10 @@
 </div>
 
 
-@*@inherits LayoutComponentBase
-
-    <div class="page">
-        <div class="sidebar">
-            <NavMenu />
-        </div>
-
-        <div class="main">
-            <div class="top-row px-4 auth">
-                <LoginDisplay />
-                <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-            </div>
-
-            <div class="content px-4">
-                @Body
-            </div>
-        </div>
-    </div>
-*@
+@code{
+    protected override void OnInitialized()
+    {
+        if (AuthenticationService.User == null)
+            Navigation.NavigateTo("sign-in");
+    }
+}
