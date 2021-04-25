@@ -1,5 +1,53 @@
-﻿<h3>Users</h3>
+﻿@using BudgetUnderControl.AdminClient.Core.Users
+@using BudgetUnderControl.AdminClient.Core.Users.DTO
+@inject IUserService UserService
+@inject IApiResponseHandler ApiResponseHandler
+
+<Table Item="UsersListItemDto" Items="_users" PageSize="10">
+    <HeaderTemplate>
+        <strong>Users</strong>
+    </HeaderTemplate>
+
+    <ChildContent>
+        <Column Item="UsersListItemDto" Property="e=>e.Username" Title="UserName" Sortable Searchable>
+        </Column>
+        <Column Item="UsersListItemDto" Property="e=>e.Email" Title="Email" Sortable Searchable>
+        </Column>
+        <Column Item="UsersListItemDto" Property="e=>e.RoleName" Title="Role" Sortable Searchable Groupable>
+        </Column>
+        <Column Item="UsersListItemDto" Property="e=>e.IsActivated" Title="Activated" Sortable Groupable>
+            <Template>
+                <Checkbox @bind-Value="context.IsActivated" Disabled="true" />
+            </Template>
+        </Column>
+        <Column Item="UsersListItemDto" Property="e=>e.UserId" Title="">
+            <Template>
+                <NavLink href="@GetEditUserUrl(context.UserId)" >
+                    <Icon class="icon" Elements="@TablerIcons.Edit" />
+                </NavLink>
+            </Template>
+        </Column>
+    </ChildContent>
+
+</Table>
+
+
 
 @code {
+    private List<UsersListItemDto> _users = new();
 
+    protected override async Task OnInitializedAsync()
+    {
+        await GetUsers();
+    }
+
+    private async Task GetUsers()
+    {
+        _users = (await ApiResponseHandler.HandleAsync(UserService.GetUsersAsync())).ToList();
+    }
+
+    private string GetEditUserUrl(Guid userId)
+    {
+        return $"users/{userId}";
+    }
 }

@@ -1,0 +1,92 @@
+﻿@using BudgetUnderControl.AdminClient.Core.Users
+@using BudgetUnderControl.AdminClient.Core.Users.DTO
+@using BudgetUnderControl.AdminClient.Core.Users.Enums
+@inject IUserService UserService
+@inject IApiResponseHandler ApiResponseHandler
+
+<Card Size="CardSize.Default">
+    <CardBody>
+        <CardTitle>
+            <h3>Profile</h3>
+        </CardTitle>
+
+        <div class="mb-3">
+            <label class="form-label">User Id</label>
+            <input type="text" class="form-control" name="example-text-input" placeholder="User Id" @bind="@UserId" disabled>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">User Name</label>
+            <input type="text" class="form-control" name="example-text-input" placeholder="User Name" @bind="@_user.Username">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-control" name="example-text-input" placeholder="First Name" @bind="@_user.FirstName">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-control" name="example-text-input" placeholder="Last Name" @bind="@_user.LastName">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" name="example-text-input" placeholder="Email" @bind="@_user.Email">
+        </div>
+
+        <div class="mb-3">
+            <ItemSelect Label="Role" TItem="UserRole" TValue="UserRole" Items="EnumHelper.GetList<UserRole>()" @bind-SelectedValue="_user.Role" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Activation date</label>
+            <input type="email" class="form-control" name="example-text-input" placeholder="No activation date" @bind="@_user.ActivatedOn" disabled>
+            <Checkbox @bind-Value="_user.IsActivated" Label="Is Activated" />
+        </div>
+
+
+        <ButtonList>
+            <Button Type="ButtonType.Link" LinkTo="users">
+                <Icon class="icon" Elements="@TablerIcons.Arrow_back_up" /> Back
+            </Button>
+
+
+            <Button Type="ButtonType.Button" BackgroundColor="TablerColor.Blue" OnClick="@ResetActivationCodeAsync">
+                <Icon class="icon" Elements="@TablerIcons.Code" /> Resend Activation Code
+            </Button>
+
+            <Button Type="ButtonType.Submit" BackgroundColor="TablerColor.Success" OnClick="@UpdateUserAsync" />
+
+        </ButtonList>
+    </CardBody>
+</Card>
+
+
+@code{
+    [Parameter]
+    public Guid UserId { get; set; }
+
+    private UserEditDto _user { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetUserAsync();
+    }
+
+    private async Task GetUserAsync()
+    {
+        _user = await ApiResponseHandler.HandleAsync(UserService.GetUserAsync(UserId));
+    }
+
+    private async Task UpdateUserAsync()
+    {
+        await ApiResponseHandler.HandleAsync(UserService.EditUserAsync(_user));
+    }
+
+    private async Task ResetActivationCodeAsync()
+    {
+        await ApiResponseHandler.HandleAsync(UserService.ResetActivationAsync(UserId));
+    }
+
+}

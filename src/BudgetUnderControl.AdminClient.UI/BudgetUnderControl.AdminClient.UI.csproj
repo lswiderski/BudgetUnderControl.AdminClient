@@ -27,10 +27,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Pages\Users\" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <ProjectReference Include="..\BudgetUnderControl.AdminClient.Core\BudgetUnderControl.AdminClient.Core.csproj" />
   </ItemGroup>
 

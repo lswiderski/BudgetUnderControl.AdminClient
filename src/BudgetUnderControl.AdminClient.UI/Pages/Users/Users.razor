@@ -1,0 +1,25 @@
+﻿@page "/users/{UserId:guid?}"
+
+<PageTitle>Users</PageTitle>
+<PagePretitle>
+</PagePretitle>
+
+
+<Row class="mt-1 row-deck row-cards">
+    <RowCol Sm="12" Lg="8">
+        @if (UserId.HasValue)
+        {
+            <BudgetUnderControl.AdminClient.UI.Components.Users.EditUserForm UserId="UserId.Value"  />
+        }
+        else
+        {
+            <BudgetUnderControl.AdminClient.UI.Components.Users.Users />
+        }
+
+    </RowCol>
+</Row>
+
+@code{
+    [Parameter]
+    public Guid? UserId { get; set; }
+}
