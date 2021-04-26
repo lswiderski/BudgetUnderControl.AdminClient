@@ -25,10 +25,10 @@ namespace BudgetUnderControl.AdminClient.Core.Users.Services.UserService
         public Task<ApiResponse<ICollection<UsersListItemDto>>> GetUsersAsync()
             => _client.GetAsync<ICollection<UsersListItemDto>>("api/users");
 
-        public Task<ApiResponse<UserEditDto>> GetUserAsync(Guid userId)
-           => _client.GetAsync<UserEditDto>($"api/users/{userId}");
+        public Task<ApiResponse<UserDto>> GetUserAsync(Guid userId)
+           => _client.GetAsync<UserDto>($"api/users/{userId}");
 
-        public Task<ApiResponse> EditUserAsync(UserEditDto user)
+        public Task<ApiResponse> EditUserAsync(UpdateUserRequest user)
           => _client.PutAsync($"api/users/{user.UserId}", user);
 
         public Task<ApiResponse> ResetActivationAsync(Guid userId)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BudgetUnderControl.AdminClient.Core.Users.DTO
 {
-    public class UserEditDto
+    public class UserDto
     {
         public Guid UserId { get; set; }
         public string Username { get; set; }

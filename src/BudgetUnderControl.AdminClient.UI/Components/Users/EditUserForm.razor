@@ -1,8 +1,11 @@
 ﻿@using BudgetUnderControl.AdminClient.Core.Users
 @using BudgetUnderControl.AdminClient.Core.Users.DTO
 @using BudgetUnderControl.AdminClient.Core.Users.Enums
+@using BudgetUnderControl.AdminClient.Core.Users.Requests
+@using TabBlazor.Services
 @inject IUserService UserService
 @inject IApiResponseHandler ApiResponseHandler
+@inject ToastService ToastService
 
 <Card Size="CardSize.Default">
     <CardBody>
@@ -67,7 +70,7 @@
     [Parameter]
     public Guid UserId { get; set; }
 
-    private UserEditDto _user { get; set; } = new();
+    private UserDto _user { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -81,12 +84,29 @@
 
     private async Task UpdateUserAsync()
     {
-        await ApiResponseHandler.HandleAsync(UserService.EditUserAsync(_user));
+        var request = new UpdateUserRequest(_user.Username, _user.FirstName, _user.LastName, _user.Role, _user.Email, UserId, _user.IsActivated);
+        var response = await ApiResponseHandler.HandleAsync(UserService.EditUserAsync(request));
+        if(response.Succeeded)
+        {
+            await ToastService.AddToastAsync(new ToastModel { Title = "Success", Message = "User Updated" });
+        }
+        else
+        {
+            await ToastService.AddToastAsync(new ToastModel { Title = "Error", Message = "Request failed" });
+        }
     }
 
     private async Task ResetActivationCodeAsync()
     {
-        await ApiResponseHandler.HandleAsync(UserService.ResetActivationAsync(UserId));
+        var response = await ApiResponseHandler.HandleAsync(UserService.ResetActivationAsync(UserId));
+        if (response.Succeeded)
+        {
+            await ToastService.AddToastAsync(new ToastModel { Title = "Success", Message = "New code was sent" });
+        }
+        else
+        {
+            await ToastService.AddToastAsync(new ToastModel { Title = "Error", Message = "Request failed" });
+        }
     }
 
 }

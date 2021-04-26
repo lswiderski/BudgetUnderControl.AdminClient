@@ -15,9 +15,9 @@ namespace BudgetUnderControl.AdminClient.Core.Users
 
         Task<ApiResponse<ICollection<UsersListItemDto>>> GetUsersAsync();
 
-        Task<ApiResponse<UserEditDto>> GetUserAsync(Guid userId);
+        Task<ApiResponse<UserDto>> GetUserAsync(Guid userId);
 
-        Task<ApiResponse> EditUserAsync(UserEditDto user);
+        Task<ApiResponse> EditUserAsync(UpdateUserRequest user);
 
         Task<ApiResponse> ResetActivationAsync(Guid userId);
     }
