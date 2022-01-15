@@ -25,7 +25,8 @@ namespace BudgetUnderControl.AdminClient.UI
             builder.Services.AddScoped<IApiResponseHandler, ApiResponseHandler>();
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
             //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-            builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri("http://localhost:5000")});
+            var baseAddress = builder.Configuration.GetValue<string>("APIUrl");
+            builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri(baseAddress) });
             builder.Services.AddTabler();
 
             var host = builder.Build();

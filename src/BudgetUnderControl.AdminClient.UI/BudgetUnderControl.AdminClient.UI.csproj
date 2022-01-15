@@ -4,6 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>BudgetUnderControl.AdminClient.UI</AssemblyName>
     <RootNamespace>BudgetUnderControl.AdminClient.UI</RootNamespace>
+    <UserSecretsId>553fa496-0610-4eb7-8c6b-4618682f41ef</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,6 +24,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.5" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="5.0.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
     <PackageReference Include="TabBlazor" Version="0.3.2-alpha" />
   </ItemGroup>
