@@ -32,15 +32,15 @@ namespace BudgetUnderControl.AdminClient.UI
             builder.Services.AddTabler();
 
             var app = builder.Build();
-
+            Console.WriteLine(app.Environment.EnvironmentName);
             // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
+            if (!app.Environment.IsDevelopment() && app.Environment.EnvironmentName!= "Docker")
             {
                 app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
